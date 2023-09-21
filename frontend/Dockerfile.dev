@@ -1,0 +1,22 @@
+FROM node:16-alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+#RUN echo 'Hello world! My name is Johnny Sins'
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+ # docker build -f Dockerfile.dev .      //create image
+ # docker run  -p 3000:3000 imageId      // create and run container and map container port 3000 to local machine port 3000
+ # docker run -p 3000:3000 -v /app/node_modules  -v $(pwd):/app imageId  // with docker volume 
+ # docker run -it -p 3000:3000 -v /app/node_modules -v ${PWD}:/app imageId   //for windows
+ #docker run = docker create + docker start 
+
+ # named image and container
+ # docker build -f Dockerfile.dev -t clau/boss:v2 .   #create tag for image 
+ # docker run -it -p 3000:3000 -v /app/node_modules -v ${PWD}:/app --name claus_frontend -e WATCHPACK_POLLING=true clau/boss:v2  # name container
+ # -e set the env vars
